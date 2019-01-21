@@ -2,6 +2,7 @@ package io.github.dellisd.shopifyapp.ui.products
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
@@ -37,6 +38,14 @@ class ProductsActivity : AppCompatActivity() {
 
         vm.products.observe(this, Observer {
             it?.let((collectListView.adapter as ProductsAdapter)::submitList)
+        })
+
+        vm.isLoading.observe(this, Observer {
+            if (it == true) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+            }
         })
 
         vm.fetchProducts(collectionId)

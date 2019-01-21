@@ -2,6 +2,7 @@ package io.github.dellisd.shopifyapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import io.github.dellisd.shopifyapp.R
@@ -23,6 +24,14 @@ class MainActivity : AppCompatActivity() {
 
         vm.collections.observe(this, Observer {
             it?.let((collectionsListView.adapter as CollectionsAdapter)::submitList)
+        })
+
+        vm.isLoading.observe(this, Observer {
+            if (it == true) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+            }
         })
 
         vm.fetchCollections()

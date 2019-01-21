@@ -15,12 +15,19 @@ class CollectionsViewModel(private val repository: ShopifyRepository) : ViewMode
     private val _collections = MutableLiveData<List<Collection>>()
     val collections: LiveData<List<Collection>> = _collections
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     fun fetchCollections() {
+        _isLoading.value = true
+
         repository.getCustomCollections()
             .subscribe({
                 _collections.postValue(it.collections)
+                _isLoading.value = false
             }, {
                 it.printStackTrace()
+                _isLoading.value = false
             })
             .addTo(disposables)
     }
