@@ -3,6 +3,7 @@ package io.github.dellisd.shopifyapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import io.github.dellisd.shopifyapp.R
 import io.github.dellisd.shopifyapp.ui.collections.CollectionsAdapter
 import io.github.dellisd.shopifyapp.ui.collections.CollectionsViewModel
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        collectionsListView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         collectionsListView.adapter = CollectionsAdapter()
 
         vm.collections.observe(this, Observer {

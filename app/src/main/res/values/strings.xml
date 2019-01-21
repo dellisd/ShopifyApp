@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Shopify App</string>
+    <string name="inventory_count_label">x%d</string>
 </resources>

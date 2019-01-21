@@ -1,5 +1,6 @@
 package io.github.dellisd.shopifyapp.data.api.models
 
+import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -21,7 +22,17 @@ data class Product(
     val updatedAt: Date,
     val variants: List<ProductVariant>,
     val vendor: String
-)
+) {
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Product>() {
+
+            override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean = oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean = oldItem == newItem
+
+        }
+    }
+}
 
 data class ProductVariant(
     @SerializedName("barcode") val barcode: String,
